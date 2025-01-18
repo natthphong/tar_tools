@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Layout from '../components/Layout';
 import axios from '../utils/apiClient';
+import {AxiosResponse} from "axios";
 
 const LoginPage: React.FC = () => {
     const [username, setUsername] = useState('');
@@ -9,7 +10,7 @@ const LoginPage: React.FC = () => {
 
     const handleLogin = async () => {
         try {
-            const response = await axios.post('/api/login', { username, password });
+            const response:AxiosResponse<any> = await axios.post('/api/login', { username, password });
             setMessage(`Login successful: ${response.data.message}`);
         } catch (error: any) {
             setMessage(`Error: ${error.response?.data?.error || error.message}`);

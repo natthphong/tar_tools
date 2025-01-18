@@ -1,19 +1,20 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import axios from '../../utils/externalApiClient';
+import {AxiosResponse} from "axios";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     if (req.method === 'POST') {
         const { username, password } = req.body;
 
         try {
-            const response = await axios.post('/iam/api/v1/auth/login', {
+            const response:AxiosResponse<any> = await axios.post('/iam/api/v1/auth/login', {
                 appCode: 'GIAM',
                 username,
                 password,
             });
 
             const { accessToken, refreshToken, jwtBody } = response.data.body;
-            const currentRole = jwtBody?.roles?.[0];
+            const currentRole:any = jwtBody?.roles?.[0];
             res.status(200).json({
                 accessToken,
                 refreshToken,
