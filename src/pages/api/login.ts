@@ -12,9 +12,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 password,
             });
 
-            const { accessToken, refreshToken, jwtBody } = response.data;
+            const { accessToken, refreshToken, jwtBody } = response.data.body;
             const currentRole = jwtBody?.roles?.[0];
-
             res.status(200).json({
                 accessToken,
                 refreshToken,
